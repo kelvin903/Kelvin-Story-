@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Story 💖</title>
+
+<style>
+  body {
+    margin: 0;
+    font-family: Arial;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(-45deg, #ff9a9e, #fbc2eb, #a18cd1, #fad0c4);
+    background-size: 400% 400%;
+    animation: bg 10s ease infinite;
+    color: white;
+  }
+
+  @keyframes bg {
+    0% {background-position:0% 50%;}
+    50% {background-position:100% 50%;}
+    100% {background-position:0% 50%;}
+  }
+
+  /* ENVELOPE */
+  #envelope {
+    text-align: center;
+    cursor: pointer;
+    animation: float 2s infinite ease-in-out;
+  }
+
+  .env {
+    width: 180px;
+    height: 120px;
+    background: white;
+    border-radius: 12px;
+    position: relative;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+  }
+
+  .flap {
+    position: absolute;
+    top: -65px;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-left: 90px solid transparent;
+    border-right: 90px solid transparent;
+    border-bottom: 65px solid #ff4d6d;
+  }
+
+  p {
+    margin-top: 10px;
+    font-weight: bold;
+  }
+
+  @keyframes float {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+    100% { transform: translateY(0); }
+  }
+
+  /* SCREENS */
+  .screen {
+    display: none;
+    text-align: center;
+    padding: 20px;
+    max-width: 90%;
+  }
+
+  .active {
+    display: block;
+  }
+
+  h1 {
+    font-size: 22px;
+    margin-bottom: 10px;
+  }
+
+  #text1, #text2, #text3 {
+    font-size: 16px;
+    line-height: 1.6;
+    white-space: pre-line;
+  }
+
+  .hint {
+    margin-top: 15px;
+    font-size: 13px;
+    opacity: 0.7;
+  }
+
+  /* BUTTON */
+  .btn {
+    margin-top: 20px;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 25px;
+    background: #ff4d6d;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+  /* CONFETTI */
+  .confetti {
+    position: fixed;
+    width: 8px;
+    height: 8px;
+    top: -10px;
+    animation: fall linear forwards;
+  }
+
+  @keyframes fall {
+    to {
+      transform: translateY(110vh) rotate(720deg);
+      opacity: 0;
+    }
+  }
+</style>
+</head>
+
+<body>
+
+<!-- ENVELOPE -->
+<div id="envelope" onclick="startStory()">
+  <div class="env">
+    <div class="flap"></div>
+  </div>
+  <p>Click Me 💌</p>
+</div>
+
+<!-- SCENES -->
+<div class="screen" id="scene1" onclick="nextScene()">
+  <h1>💌 Day 1</h1>
+  <div id="text1"></div>
+  <div class="hint">Tap to continue ➜</div>
+</div>
+
+<div class="screen" id="scene2" onclick="nextScene()">
+  <h1>💭 Memories</h1>
+  <div id="text2"></div>
+  <div class="hint">Tap to continue ➜</div>
+</div>
+
+<div class="screen" id="scene3" onclick="nextScene()">
+  <h1>🎉 Birthday</h1>
+  <div id="text3"></div>
+  <div class="hint">Tap to continue ➜</div>
+</div>
+
+<div class="screen" id="scene4">
+  <h1>💖 Final Step</h1>
+  <p>If you enjoyed this story ❤️</p>
+
+  <button class="btn" onclick="sendWhatsApp()">
+    Send Message 💬
+  </button>
+</div>
+
+<script>
+
+let current = 0;
+
+/* START STORY */
+function startStory() {
+  document.getElementById("envelope").style.display = "none";
+  document.getElementById("scene1").classList.add("active");
+  current = 1;
+
+  typeText("text1", `It all started like a normal moment, nothing special at first…
+just two people crossing paths without knowing what it would become.
+
+But somehow, even the smallest conversations started to feel different.
+
+It wasn’t loud, it wasn’t rushed…
+but it slowly became something that mattered more than expected.`);
+
+  typeText("text2", `The memories didn’t come from big things…
+they came from the little moments.
+
+The random chats.
+The laughter that didn’t need a reason.
+The silence that still felt comfortable.
+
+And slowly, without even noticing…
+you became someone I started to care about more than I planned.
+
+Not just a memory…
+but a feeling I don’t want to forget.`);
+
+  typeText("text3", `🎉 HAPPY BIRTHDAY ❤️
+
+Today is not just a normal day…
+it’s a reminder that someone truly special exists in this world.
+
+I hope this new chapter of your life brings you peace in your mind,
+joy in your heart,
+and success in everything you touch.
+
+I hope you grow into everything you dream of becoming,
+and even more than you ever imagined.
+
+And on days when life feels heavy,
+I hope you remember that you are strong enough to overcome anything.
+
+You deserve kindness.
+You deserve happiness.
+You deserve love that never feels confusing or small.
+
+Thank you for existing in a way that makes life feel brighter,
+even from a distance.
+
+And no matter where life goes,
+I just want you to always know this…
+
+You are appreciated.
+You are valued.
+And you are not forgotten.
+
+💖 Kelvin cares about you deeply… more than words can fully explain.`);
+}
+
+/* TYPEWRITER */
+function typeText(id, text) {
+  let i = 0;
+  const el = document.getElementById(id);
+
+  function typing() {
+    if (i < text.length) {
+      el.innerHTML += text.charAt(i);
+      i++;
+      setTimeout(typing, 28);
+    }
+  }
+
+  typing();
+}
+
+/* NAVIGATION */
+function nextScene() {
+
+  if (current === 1) {
+    document.getElementById("scene1").classList.remove("active");
+    document.getElementById("scene2").classList.add("active");
+    current = 2;
+  }
+
+  else if (current === 2) {
+    document.getElementById("scene2").classList.remove("active");
+    document.getElementById("scene3").classList.add("active");
+    current = 3;
+
+    startConfetti();
+  }
+
+  else if (current === 3) {
+    document.getElementById("scene3").classList.remove("active");
+    document.getElementById("scene4").classList.add("active");
+    current = 4;
+  }
+}
+
+/* CONFETTI */
+function startConfetti() {
+  for (let i = 0; i < 120; i++) {
+    let c = document.createElement("div");
+    c.classList.add("confetti");
+
+    document.body.appendChild(c);
+
+    c.style.left = Math.random() * window.innerWidth + "px";
+    c.style.background = ["#ff0a54","#ff477e","#ff85a1","#fbb1bd","#ffd6e0","#ffffff"][Math.floor(Math.random()*6)];
+    c.style.animationDuration = (2 + Math.random() * 4) + "s";
+
+    setTimeout(() => c.remove(), 8000);
+  }
+}
+
+/* WHATSAPP */
+function sendWhatsApp() {
+  const msg = encodeURIComponent("Thank you ❤️ this was amazing!");
+  window.location.href = "https://wa.me/2348037321302?text=" + msg;
+}
+
+</script>
+
+</body>
+  </html>
